@@ -1,0 +1,38 @@
+name: Bot Telegram HCO26
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # toutes les 10 minutes
+  workflow_dispatch:          # bouton "Run workflow" pour lancer à la main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bot-telegram
+  cancel-in-progress: false
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests
+
+      - name: Publier les produits
+        run: python bot.py
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+
+      - name: Sauvegarder la liste des produits publiés
+        run: |
+          touch publies.txt
+          git config user.name "hco26-bot"
+          git config user.email "hco26-bot@users.noreply.github.com"
+          git add publies.txt
+          git diff --cached --quiet || (git commit -m "Produits publiés" && git pull --rebase && git push)
