@@ -16,9 +16,9 @@ import requests
 # ================= RÉGLAGES (à modifier) =================
 CANAL = "@HCO26link"
 DATE_DEBUT = "2026-10-02"    # jour où le 1er produit du CSV est publié (AAAA-MM-JJ)
-PRODUITS_PAR_JOUR = 50
+PRODUITS_PAR_JOUR = 30
 HEURE_DEBUT = 9              # premier post de la journée (heure de Paris)
-HEURE_FIN = 23               # dernier créneau avant cette heure
+HEURE_FIN = 19               # dernier créneau avant cette heure
 LIGNE_CODE = "🎁 Code HCO26 = -15%"
 MAX_PAR_PASSAGE = 4          # sécurité : jamais plus de 4 posts d'un coup en cas de retard
 # =========================================================
